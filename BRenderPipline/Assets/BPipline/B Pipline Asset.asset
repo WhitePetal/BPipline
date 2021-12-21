@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e69401b57acbe641bdb27bf31716235, type: 3}
+  m_Name: B Pipline Asset
+  m_EditorClassIdentifier: 
+  useDynamicBatching: 1
+  useGPUInstancing: 1
+  useSRPBatching: 1
+  useLightsPerObject: 0
+  shadowSetttings:
+    maxDistance: 70
+    distanceFade: 0.1
+    shadowColor: {r: 0.29334286, g: 0.54296756, b: 0.6037736, a: 1}
+    directional:
+      shadowMapSize: 512
+      filterMode: 1
+      cascadeCount: 2
+      cascadeFade: 0.1
+      cascadeRatio1: 0.5
+      cascadeRatio2: 0.5
+      cascadeRatio3: 0.8
+      cascadeBlend: 2
+    other:
+      ShadowMapSize: 1024
+      filterMode: 0
+  postprocessSettings: {fileID: 11400000, guid: b85d823b0a4494b638fa78a07fbd9b82,
+    type: 2}

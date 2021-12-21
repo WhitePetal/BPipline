@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 5eccb57d974ba44728876f797a50017e
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _LUT: {fileID: 2800000, guid: 0538c69e2d26ae54e98f7f747f3944fc, type: 3}
+  - _LUT_SSS: {fileID: 2800000, guid: 55e4bdf14d5ba46a6b6e00702545765f, type: 3}
+  - _MainTex: {instanceID: 0}
+  - _NormalTex: {instanceID: 0}
+  - _ParallxTex: {instanceID: 0}
+  - _MRATex: {instanceID: 0}
+  - _EmissionMap: {instanceID: 0}
+  - _DetilTex: {instanceID: 0}
+  - _DetilNormalTex: {instanceID: 0}
+  - _AmbientTex: {instanceID: 0}
+  - _EmissionPointMask: {instanceID: 0}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

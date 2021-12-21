@@ -1,0 +1,99 @@
+﻿// #pragma kernel GaussianBlur
+#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
+#pragma kernel SSAO
+// #pragma kernel BlendMulR
+// #pragma kernel Copy
+
+RWTexture2D<float4> _StackOutput;
+
+Texture2D<float4> _StackSource;
+Texture2D<float4> _DepthBuffer;
+Texture2D<float4> _BlendMulRTex;
+SamplerState sampler_linear_clamp;
+float4 _DepthBuffer_TexelSize;
+float2 _SourceWidthHeight;
+
+float2 _BlurOffset;
+float3 _AO_Scales;
+
+float2 randVec(float2 value)
+{
+    float2 vec = float2(dot(value, float2(127.1, 337.1)), dot(value, float2(269.5, 183.3)));
+    vec = 0.5 + 0.5 * frac(sin(vec) * 43758.123);
+    return vec;
+}
+
+float DotClamped(float3 n0, float3 n1)
+{
+    return saturate(dot(n0, n1));
+}
+
+// [numthreads(8,8,1)]
+// void GaussianBlur (uint3 id : SV_DispatchThreadID)
+// {
+//     half4 offset = _BlurOffset.xyxy * half4(1.0, 1.0, -1.0, -1.0);
+//     float2 uv = id.xy / _SourceWidthHeight;
+//     float4 uv0 = uv.xyxy + offset;
+//     float4 uv1 = uv.xyxy + offset * 2;
+//     float4 uv2 = uv.xyxy + offset * 3;
+//     half4 source = _StackSource.SampleLevel(sampler_linear_clamp, uv.xy, 0);
+//     half3 col = source.rgb * 0.4;
+//     col += 0.15 * _StackSource.SampleLevel(sampler_linear_clamp, uv0.xy, 0).rgb;
+//     col += 0.15 * _StackSource.SampleLevel(sampler_linear_clamp, uv0.zw, 0).rgb;
+//     col += 0.10 * _StackSource.SampleLevel(sampler_linear_clamp, uv1.xy, 0).rgb;
+//     col += 0.10 * _StackSource.SampleLevel(sampler_linear_clamp, uv1.zw, 0).rgb;
+//     col += 0.05 * _StackSource.SampleLevel(sampler_linear_clamp, uv2.xy, 0).rgb;
+//     col += 0.05 * _StackSource.SampleLevel(sampler_linear_clamp, uv2.zw, 0).rgb;
+//     _StackOutput[id.xy] = half4(col, source.a);
+// }
+
+[numthreads(8,8,1)]
+void SSAO(uint3 id : SV_DispatchThreadID)
+{
+    float2 uv = id.xy / _SourceWidthHeight.xy;
+    float4 uv0 = float4(uv + float2(_DepthBuffer_TexelSize.x, 0.0), uv + float2(0.0, _DepthBuffer_TexelSize.y));
+    float center_depth = _DepthBuffer.SampleLevel(sampler_linear_clamp, uv, 0).r;
+    float s_depth = _DepthBuffer.SampleLevel(sampler_linear_clamp, uv0.xy, 0).r;
+    float t_depth = _DepthBuffer.SampleLevel(sampler_linear_clamp, uv0.zw, 0).r;
+    float3 normal = normalize(cross(float3(_DepthBuffer_TexelSize.x, 0.0, s_depth - center_depth), float3(0.0, _DepthBuffer_TexelSize.y, t_depth - center_depth)));
+
+    float2 rv = (2.0 * randVec(uv) - 1.0) * _AO_Scales.yz;
+    float4 nuv0 = float4(uv + float2(rv.x, rv.y), uv + float2(-rv.x, rv.y));
+    float4 nuv1 = float4(uv + float2(-rv.x, -rv.y), uv + float2(rv.x, -rv.y));
+    
+    float rd = _DepthBuffer.SampleLevel(sampler_linear_clamp, nuv0.xy, 0).r;
+    float ld = _DepthBuffer.SampleLevel(sampler_linear_clamp, nuv0.zw, 0).r;
+    float ud = _DepthBuffer.SampleLevel(sampler_linear_clamp, nuv1.xy, 0).r;
+    float dd = _DepthBuffer.SampleLevel(sampler_linear_clamp, nuv1.zw, 0).r;
+    float3 c_pos = float3(uv, center_depth);
+    #if UNITY_REVERSED_Z
+        float3 r_pos = normalize(float3(nuv0.xy, rd) - c_pos);
+        float3 l_pos = normalize(float3(nuv0.zw, ld) - c_pos);
+        float3 u_pos = normalize(float3(nuv1.xy, ud) - c_pos);
+        float3 d_pos = normalize(float3(nuv1.zw, dd) - c_pos);
+    #else
+        float3 r_pos = normalize(c_pos - float3(nuv0.xy, rd));
+        float3 l_pos = normalize(c_pos - float3(nuv0.zw, ld));
+        float3 u_pos = normalize(c_pos - float3(nuv1.xy, ud));
+        float3 d_pos = normalize(c_pos - float3(nuv1.zw, dd));
+    #endif
+
+    _StackOutput[id.xy] = 1.0 - _AO_Scales.x * (DotClamped(r_pos, normal) + DotClamped(l_pos, normal) +
+        DotClamped(u_pos, normal) + DotClamped(d_pos, normal));
+}
+
+// [numthreads(8,8,1)]
+// void BlendMulR(uint3 id : SV_DispatchThreadID)
+// {
+//     float2 uv = id.xy / _SourceWidthHeight;
+//     half4 source = _StackSource.SampleLevel(sampler_linear_clamp, uv, 0);
+//     source.rgb *= _BlendMulRTex.SampleLevel(sampler_linear_clamp, uv, 0).r;
+//     _StackOutput[id.xy] = source;
+// }
+
+// [numthreads(8,8,1)]
+// void Copy(uint3 id : SV_DispatchThreadID)
+// {
+//     float2 uv = id.xy / _SourceWidthHeight;
+//     _StackOutput[id.xy] = _StackSource.SampleLevel(sampler_linear_clamp, uv, 0);
+// }
