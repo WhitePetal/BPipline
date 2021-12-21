@@ -1,8 +1,9 @@
 ﻿<Properties StartupConfiguration="{E9874D25-E251-AEF9-CFCC-E7D21E6968BB}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/BPipline/Runtime/MainCameraRenderer.cs">
     <Files>
-      <File FileName="Assets/BPipline/Runtime/BPipline.cs" Line="49" Column="27" />
-      <File FileName="Assets/BPipline/Runtime/MainCameraRenderer.cs" Line="83" Column="26" />
+      <File FileName="Assets/BPipline/Runtime/BPipline.cs" Line="14" Column="24" />
+      <File FileName="Assets/BPipline/Runtime/MainCameraRenderer.cs" Line="109" Column="70" />
+      <File FileName="Assets/BPipline/Runtime/PostProcessProfiler.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -11,7 +12,7 @@
             <Node name="Assets" expanded="True">
               <Node name="BPipline" expanded="True">
                 <Node name="Runtime" expanded="True">
-                  <Node name="MainCameraRenderer.cs" selected="True" />
+                  <Node name="BPipline.cs" selected="True" />
                 </Node>
               </Node>
             </Node>

@@ -88,7 +88,6 @@
     <None Include="Assets\BPipline\Shaders\Other\Fur.shader" />
     <None Include="Assets\BPipline\Shaders\Unlit.shader" />
     <None Include="Assets\BPipline\Shaders\Libiary\UnityGI.hlsl" />
-    <None Include="Assets\BPipline\Shaders\Libiary\Fur.hlsl" />
     <None Include="Assets\BPipline\Shaders\Libiary\UnityShadow.hlsl" />
     <None Include="Assets\BPipline\Shaders\Effect\AlphaBlend.shader" />
     <None Include="Assets\BPipline\Shaders\ImportantPBR\PBR_BSDF_Alpha_LUT.shader" />

@@ -23,7 +23,7 @@ MonoBehaviour:
     aoStrength: 1
   hdr:
     enable: 1
-    aces_tonemapping: 1.2
+    aces_tonemapping: 1
   fxaa: 1
   filterMode: 1
   renderTextureFormat: 9

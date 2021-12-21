@@ -17,13 +17,13 @@
         _GravityScale("重力大小", Range(-20.0, 20.0)) = 1.0
         _WindDir("风力方向", Vector) = (1.0, -1.0, 0.5, 0.0)
         [VectorRange(0.0, 2.0, 1.0, 2.0, 1.0, 0.0, 1.0, 20.0, 0.0, 20.0, 1.0, 20.0, 0.0, 0.0, 0.0, 0.0)]_WindScale_WindFresquency_WindPhase("风力大小_风频率_坐标相位偏差大小", Vector) = (1.0, 2.0, 10.0, 0.0)
-        [VectorRange(0.0, 16.0, 0.0, 16.0, 0.0, 1.0)]_PostProcessFactors("辉光强度_辉光阈值_马赛克", Vector) = (0.0, 0.2, 0.0, 0.0)
+        [VectorRange(0.0, 2.0, 0.0, 2.0, 0.0, 1.0)]_PostProcessFactors("辉光强度_辉光阈值_马赛克", Vector) = (0.0, 0.2, 0.0, 0.0)
     }
     SubShader
     {
         Tags { "Queue"="Transparent" "RenderType"="Opaque" }
 
-        ZWrite Off
+        ZWrite On
         HLSLINCLUDE
         #pragma multi_compile_local __ GRAVITY_ON
         #pragma multi_compile_local __ WIND_ON
@@ -31,161 +31,168 @@
 
         Pass
         {
-            Tags {"LightMode"="BMultiPass0"}
-            Blend SrcAlpha OneMinusSrcAlpha
+            Tags {"LightMode"="BFurPass"}
+            Blend 0 SrcAlpha OneMinusSrcAlpha
+            Blend 1 Off
             HLSLPROGRAM
             #pragma target 3.5
             #pragma multi_compile_instancing
             #pragma vertex vert
             #pragma fragment frag
-            #include "Assets/BPipline/Shaders/Libiary/Fur.hlsl"
+            #define _NoGISpecular 1
 
-            v2f vert(a2v v) {return vert_fur(v, 0.1);}
-            FragOutput frag(v2f i) {return frag_fur(i, 0.1);}
+            #include "Assets/BPipline/Shaders/Libiary/Common.hlsl"
+            #include "Assets/BPipline/Shaders/Libiary/UnityShadow.hlsl"
+            #include "Assets/BPipline/Shaders/Libiary/UnityGI.hlsl"
 
-            ENDHLSL
-        }
-        Pass
-        {
-            Tags {"LightMode"="BMultiPass1"}
-            Blend SrcAlpha OneMinusSrcAlpha
-            HLSLPROGRAM
-            #pragma target 3.5
-            #pragma multi_compile_instancing
-            #pragma vertex vert1
-            #pragma fragment frag1
-            #include "Assets/BPipline/Shaders/Libiary/Fur.hlsl"
+            struct a2v
+            {
+                float4 vertex : POSITION;
+                half3 normal : NORMAL;
+                half4 tangent : TANGENT;
+                float2 uv : TEXCOORD0;
+                GI_ATTRIBUTE_DATA
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+            };
 
-            v2f vert1(a2v v) {return vert_fur(v, 0.2);}
-            FragOutput frag1(v2f i) {return frag_fur(i, 0.2);}
+            struct v2f
+            {
+                float4 pos : SV_POSITION;
+                float4 uvs : TEXCOORD0;
+                float4 pos_world : TEXCOORD1;
+                half3 normal_world : TEXCOORD2;
+                half3 tangent_world : TEXCOORD3;
+                half3 binormal_world : TEXCOORD4;
+                GI_VARYINGS_DATA
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+            };
 
-            ENDHLSL
-        }
-        Pass
-        {
-            Tags {"LightMode"="BMultiPass2"}
-            Blend SrcAlpha OneMinusSrcAlpha
-            HLSLPROGRAM
-            #pragma target 3.5
-            #pragma multi_compile_instancing
-            #pragma vertex vert2
-            #pragma fragment frag2
-            #include "Assets/BPipline/Shaders/Libiary/Fur.hlsl"
+            TEXTURE2D(_MainTex);
+            SAMPLER(sampler_MainTex);
+            TEXTURE2D(_FurShapeTex); // R: FurShape ... G: BaseShape
+            SAMPLER(sampler_FurShapeTex);
+            half _FurOffset;
 
-            v2f vert2(a2v v) {return vert_fur(v, 0.3);}
-            FragOutput frag2(v2f i) {return frag_fur(i, 0.3);}
+            UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
+                UNITY_DEFINE_INSTANCED_PROP(half3, _DiffuseColor)
+                UNITY_DEFINE_INSTANCED_PROP(float4, _MainTex_ST)
+                UNITY_DEFINE_INSTANCED_PROP(float4, _FurShapeTex_ST)
+                UNITY_DEFINE_INSTANCED_PROP(half4, _AO_AoOffset_LightFilter_LightExposure)
+                UNITY_DEFINE_INSTANCED_PROP(half3, _AmbientColor)
+                UNITY_DEFINE_INSTANCED_PROP(half3, _FresnelStrength_FresnelRange_SHStrength)
+                UNITY_DEFINE_INSTANCED_PROP(half3, _SpecCol1)
+                UNITY_DEFINE_INSTANCED_PROP(half3, _SpecCol2)
+                UNITY_DEFINE_INSTANCED_PROP(half4, _SpecExp)
+                UNITY_DEFINE_INSTANCED_PROP(half, _SpecStrength)
 
-            ENDHLSL
-        }
-        Pass
-        {
-            Tags {"LightMode"="BMultiPass3"}
-            Blend SrcAlpha OneMinusSrcAlpha
-            HLSLPROGRAM
-            #pragma target 3.5
-            #pragma multi_compile_instancing
-            #pragma vertex vert3
-            #pragma fragment frag3
-            #include "Assets/BPipline/Shaders/Libiary/Fur.hlsl"
+                UNITY_DEFINE_INSTANCED_PROP(half3, _FurBaseOffset_FurOfsset_FurLength)
+                UNITY_DEFINE_INSTANCED_PROP(half3, _GravityDir)
+                UNITY_DEFINE_INSTANCED_PROP(half, _GravityScale)
+                UNITY_DEFINE_INSTANCED_PROP(half3, _WindDir)
+                UNITY_DEFINE_INSTANCED_PROP(half3, _WindScale_WindFresquency_WindPhase)
 
-            v2f vert3(a2v v) {return vert_fur(v, 0.4);}
-            FragOutput frag3(v2f i) {return frag_fur(i, 0.4);}
+                UNITY_DEFINE_INSTANCED_PROP(half3, _PostProcessFactors)
+            UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
 
-            ENDHLSL
-        }
-        Pass
-        {
-            Tags {"LightMode"="BMultiPass4"}
-            Blend SrcAlpha OneMinusSrcAlpha
-            HLSLPROGRAM
-            #pragma target 3.5
-            #pragma multi_compile_instancing
-            #pragma vertex vert4
-            #pragma fragment frag4
-            #include "Assets/BPipline/Shaders/Libiary/Fur.hlsl"
+            #include "Assets/BPipline/Shaders/Libiary/ShaderUtil.hlsl"
+            #include "Assets/BPipline/Shaders/Libiary/TransformLibiary.hlsl"
 
-            v2f vert4(a2v v) {return vert_fur(v, 0.5);}
-            FragOutput frag4(v2f i) {return frag_fur(i, 0.5);}
+            v2f vert(a2v v)
+            {
+                v2f o;
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_TRANSFER_INSTANCE_ID(v, o);
+                TRANSFER_GI_DATA(v, o);
+                o.pos_world.xyz = TransformObjectToWorld(v.vertex.xyz);
+                o.normal_world = TransformObjectToWorldNormal(v.normal);
+                o.tangent_world = TransformObjectToWorldDir(v.tangent.xyz);
+                o.binormal_world = cross(o.normal_world, o.tangent_world) * v.tangent.w * unity_WorldTransformParams.w;
 
-            ENDHLSL
-        }
-        Pass
-        {
-            Tags {"LightMode"="BMultiPass5"}
-            Blend SrcAlpha OneMinusSrcAlpha
-            HLSLPROGRAM
-            #pragma target 3.5
-            #pragma multi_compile_instancing
-            #pragma vertex vert5
-            #pragma fragment frag5
-            #include "Assets/BPipline/Shaders/Libiary/Fur.hlsl"
+                half fur_offset = _FurOffset;
 
-            v2f vert5(a2v v) {return vert_fur(v, 0.6);}
-            FragOutput frag5(v2f i) {return frag_fur(i, 0.6);}
+                half3 dir = o.normal_world;
+                half3 dir_t = dir * GET_PROP(_FurBaseOffset_FurOfsset_FurLength).y * fur_offset;
+                #ifdef GRAVITY_ON
+                    half3 add_dir = normalize(GET_PROP(_GravityDir)) * GET_PROP(_GravityScale);
+                    half3 target = dir_t + add_dir;
+                    dir += abs(dot(dir_t, target)) * add_dir;
+                #endif
+                #ifdef WIND_ON
+                    half3 add_dir_wind = normalize(GET_PROP(_WindDir));
+                    add_dir_wind = add_dir_wind * wind_wave(GET_PROP(_WindScale_WindFresquency_WindPhase).x, GET_PROP(_WindScale_WindFresquency_WindPhase).y, 
+                    add_dir_wind, o.pos_world.xyz * GET_PROP(_WindScale_WindFresquency_WindPhase).z);
+                    half3 target_wind = dir_t + add_dir_wind;
+                    dir += abs(dot(dir_t, target_wind)) * add_dir_wind;
+                #endif
+                o.pos_world.xyz += normalize(dir) * GET_PROP(_FurBaseOffset_FurOfsset_FurLength).y * fur_offset;
 
-            ENDHLSL
-        }
-        Pass
-        {
-            Tags {"LightMode"="BMultiPass6"}
-            Blend SrcAlpha OneMinusSrcAlpha
-            HLSLPROGRAM
-            #pragma target 3.5
-            #pragma multi_compile_instancing
-            #pragma vertex vert6
-            #pragma fragment frag6
-            #include "Assets/BPipline/Shaders/Libiary/Fur.hlsl"
+                o.pos_world.w = -TransformWorldToView(o.pos_world.xyz).z;
+                o.pos = TransformWorldToHClip(o.pos_world.xyz);
+                o.uvs.xy = v.uv * GET_PROP(_MainTex_ST).xy + GET_PROP(_MainTex_ST).zw;
+                o.uvs.zw = v.uv * GET_PROP(_FurShapeTex_ST).xy + GET_PROP(_FurShapeTex_ST).zw;
+                return o;
+            }
 
-            v2f vert6(a2v v) {return vert_fur(v, 0.7);}
-            FragOutput frag6(v2f i) {return frag_fur(i, 0.7);}
+            half3 TShift(half3 tangent, half3 normal, half shift){
+                return normalize(tangent + shift * normal);
+            }
+            half StrandSpecular(half tdoth, half exponent)
+            {
+                half sqrtTdotH = sqrt(max(0.01, 1.0 - tdoth * tdoth));
+                half dirAtten = smoothstep(-1.0 ,0.0 ,tdoth);    
+                return dirAtten * pow(sqrtTdotH,exponent);
+            }
 
-            ENDHLSL
-        }
-        Pass
-        {
-            Tags {"LightMode"="BMultiPass7"}
-            Blend SrcAlpha OneMinusSrcAlpha
-            HLSLPROGRAM
-            #pragma target 3.5
-            #pragma multi_compile_instancing
-            #pragma vertex vert7
-            #pragma fragment frag7
-            #include "Assets/BPipline/Shaders/Libiary/Fur.hlsl"
+            struct FragOutput
+            {
+                half4 color : SV_TARGET0;
+                half4 flags : SV_TARGET1;
+            };
 
-            v2f vert7(a2v v) {return vert_fur(v, 0.8);}
-            FragOutput frag7(v2f i) {return frag_fur(i, 0.8);}
+            FragOutput frag(v2f i)
+            {  
+                UNITY_SETUP_INSTANCE_ID(i);
+                half fur_offset = _FurOffset;
+                half baseShape = SAMPLE_TEXTURE2D(_FurShapeTex, sampler_FurShapeTex, i.uvs.xy).g + GET_PROP(_FurBaseOffset_FurOfsset_FurLength).x;
+                half furShape = SAMPLE_TEXTURE2D(_FurShapeTex, sampler_FurShapeTex, i.uvs.zw).r * GET_PROP(_FurBaseOffset_FurOfsset_FurLength).z * baseShape;
+                half shape = saturate(furShape + baseShape - 1.0);
+                half layer = fur_offset * fur_offset;
+                shape = step(layer, shape) * (1.0 - layer);
+                half3 albedo = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uvs.xy).rgb * GET_PROP(_DiffuseColor);
 
-            ENDHLSL
-        }
-        Pass
-        {
-            Tags {"LightMode"="BMultiPass8"}
-            Blend SrcAlpha OneMinusSrcAlpha
-            HLSLPROGRAM
-            #pragma target 3.5
-            #pragma multi_compile_instancing
-            #pragma vertex vert8
-            #pragma fragment frag8
-            #include "Assets/BPipline/Shaders/Libiary/Fur.hlsl"
+                half3 v = GetWorldSpaceViewDir(i.pos_world.xyz);
+                GI gi = GetGI(GI_FRAGMENT_DATA(i), i.pos_world.xyz, i.normal_world, v, GET_PROP(_AmbientColor), 1.0, GET_PROP(_FresnelStrength_FresnelRange_SHStrength).z);
+                half ndotv = DotClamped(i.normal_world, v);
+                half3 fresenel = albedo * pow(1.0 - ndotv, GET_PROP(_FresnelStrength_FresnelRange_SHStrength).y * 10) * GET_PROP(_FresnelStrength_FresnelRange_SHStrength).x;
+                
+                half3 t1 = TShift(-i.binormal_world, i.normal_world, GET_PROP(_SpecExp).x + shape);
+                half3 t2 = TShift(-i.binormal_world, i.normal_world, GET_PROP(_SpecExp).y + shape);
+                half3 specCol1 = GET_PROP(_SpecCol1) * GET_PROP(_SpecStrength);
+                half3 specCol2 = GET_PROP(_SpecCol2) * albedo * GET_PROP(_SpecStrength);
 
-            v2f vert8(a2v v) {return vert_fur(v, 0.9);}
-            FragOutput frag8(v2f i) {return frag_fur(i, 0.9);}
 
-            ENDHLSL
-        }
-        Pass
-        {
-            Tags {"LightMode"="BMultiPass9"}
-            Blend SrcAlpha OneMinusSrcAlpha
-            HLSLPROGRAM
-            #pragma target 3.5
-            #pragma multi_compile_instancing
-            #pragma vertex vert9
-            #pragma fragment frag9
-            #include "Assets/BPipline/Shaders/Libiary/Fur.hlsl"
+                half3 col = 0.0;
+                // dir light
+                for(int lightIndex = 0; lightIndex < _DirectionalLightCount; lightIndex++)
+                {
+                    half3 l = _DirectionalLightDirections[lightIndex];
+                    half3 h = normalize(l + v);
 
-            v2f vert9(a2v v) {return vert_fur(v, 1.0);}
-            FragOutput frag9(v2f i) {return frag_fur(i, 1.0);}
+                    half ndotl = DotClamped(i.normal_world, l) + GET_PROP(_AO_AoOffset_LightFilter_LightExposure).w;
+                    half tdoth1 = dot(t1, h);
+                    half tdoth2 = dot(t2, h);
+
+                    col += (albedo + fresenel) * ndotl + specCol1 * StrandSpecular(tdoth1, GET_PROP(_SpecExp).z) +  specCol2 * StrandSpecular(tdoth2, GET_PROP(_SpecExp).w);
+                }
+
+                half ao = pow(saturate(fur_offset + GET_PROP(_AO_AoOffset_LightFilter_LightExposure).y), GET_PROP(_AO_AoOffset_LightFilter_LightExposure).x);
+                col = (col + gi.diffuse) * ao * GET_PROP(_AO_AoOffset_LightFilter_LightExposure).z;
+                half bloom = EncodeBloomLuminanceImpl(col.rgb, GET_PROP(_PostProcessFactors.x), GET_PROP(_PostProcessFactors.y));
+                FragOutput output;
+                output.color = half4(col, shape);
+                output.flags = half4(bloom, 0.0, 0.0, 0.0);
+                return output;
+            }
 
             ENDHLSL
         }
@@ -217,6 +224,7 @@
 
             TEXTURE2D(_FurShapeTex); // R: FurShape ... G: BaseShape
             SAMPLER(sampler_FurShapeTex);
+            half _FurOffset;
 
             UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
                 UNITY_DEFINE_INSTANCED_PROP(half3, _DiffuseColor)

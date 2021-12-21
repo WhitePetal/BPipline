@@ -85,11 +85,14 @@ public partial class PostProcessProfiler
 		if (postprocessSettings.fxaa)
 		{
             Draw(sourceTarget, destTarget, Pass.FXAA);
+            int temp = sourceTarget;
+            sourceTarget = destTarget;
+            destTarget = temp;
         }
 
-        if(destTarget != sourceId)
+        if(sourceTarget != sourceId)
         {
-            Draw(destTarget, sourceTarget, Pass.Copy);
+            Draw(sourceTarget, sourceId, Pass.Copy);
         }
         commandBuffer.ReleaseTemporaryRT(destinationId);
         Execute();

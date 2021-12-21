@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
@@ -15,15 +16,15 @@ public partial class MainCameraRenderer
 	private Lightings lightings = new Lightings();
 	private PostProcessProfiler postprocessProfiler = new PostProcessProfiler();
 	private static int colorBufferId = Shader.PropertyToID("_ColorBuffer");
-    private static int addBufferId = Shader.PropertyToID("_AddBuffer");
-    private static int depthBufferId = Shader.PropertyToID("_DepthBuffer");
+	private static int addBufferId = Shader.PropertyToID("_AddBuffer");
+	private static int depthBufferId = Shader.PropertyToID("_DepthBuffer");
 	private static int postprocessId = Shader.PropertyToID("_PostProcessSource");
 
 	private static RenderTargetIdentifier[] colorBufferIds =
-    {
-        colorBufferId,
-        addBufferId
-    };
+	{
+		colorBufferId,
+		addBufferId
+	};
 	private static RenderBufferLoadAction[] colorBuffersLoadActions =
 	{
 		RenderBufferLoadAction.DontCare,
@@ -39,7 +40,7 @@ public partial class MainCameraRenderer
 		RenderBufferStoreAction.DontCare,
 		RenderBufferStoreAction.DontCare
 	};
-	public static RenderTargetBinding renderTargetBinding = new RenderTargetBinding(colorBufferIds, colorBuffersLoadActions, colorBuffersStoreActions, depthBufferId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.DontCare);
+	public static RenderTargetBinding renderTargetBinding = new RenderTargetBinding(colorBufferIds, colorBuffersLoadActions, colorBuffersStoreActions, depthBufferId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store);
 	public static RenderTargetBinding renderTargetBinding_PreDepth = new RenderTargetBinding(colorBufferIds, colorBuffersLoadActions, colorBuffersStoreActions_PreDepth, depthBufferId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store);
 
 	private const string commandBufferName = "Render Camera";
@@ -61,7 +62,7 @@ public partial class MainCameraRenderer
 
 		if (!Cull(shadowSetttings.maxDistance)) return;
 
-        commandBuffer.BeginSample(SampleName);
+		commandBuffer.BeginSample(SampleName);
 		lightings.Setup(context, cullingResults, shadowSetttings, useLightsPerObject);
 		postprocessProfiler.Setup(context, camera, postprocessSettings);
 		commandBuffer.EndSample(SampleName);
@@ -71,7 +72,7 @@ public partial class MainCameraRenderer
 		SetupPerDepth();
 		DrawPreDepth(useDynamicBatching, useGPUInstancing);
 
-        SetupForRender();
+		SetupForRender();
 
 		DrawVisibleGeometry(useDynamicBatching, useGPUInstancing, useLightsPerObject);
 #if UNITY_EDITOR
@@ -79,7 +80,7 @@ public partial class MainCameraRenderer
 		DrawGizmosBeforePostProcess();
 #endif
 		if (postprocessProfiler.isActive)
-        {
+		{
 			postprocessProfiler.Render(colorBufferId);
 		}
 
@@ -93,7 +94,7 @@ public partial class MainCameraRenderer
 
 	private bool Cull(float maxShadowDistance)
 	{
-		if(camera.TryGetCullingParameters(out ScriptableCullingParameters p))
+		if (camera.TryGetCullingParameters(out ScriptableCullingParameters p))
 		{
 			p.shadowDistance = Mathf.Min(maxShadowDistance, camera.farClipPlane);
 			cullingResults = context.Cull(ref p);
@@ -103,7 +104,7 @@ public partial class MainCameraRenderer
 	}
 
 	private void GenerateBuffers()
-    {
+	{
 		if (postprocessProfiler.isActive)
 		{
 			if (postprocessSettings.hdr.enable) postprocessSettings.renderTextureFormat = RenderTextureFormat.DefaultHDR;
@@ -115,7 +116,7 @@ public partial class MainCameraRenderer
 	}
 
 	private void SetupPerDepth()
-    {
+	{
 		CameraClearFlags cameraClearFlags = camera.clearFlags;
 		context.SetupCameraProperties(camera);
 		commandBuffer.SetRenderTarget(renderTargetBinding_PreDepth);
@@ -125,7 +126,7 @@ public partial class MainCameraRenderer
 	}
 
 	private void DrawPreDepth(bool useDynamicBatching, bool useGPUInstancing)
-    {
+	{
 		SortingSettings sortingSettings = new SortingSettings(camera)
 		{
 			criteria = SortingCriteria.CommonOpaque
@@ -138,27 +139,29 @@ public partial class MainCameraRenderer
 		FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
 		context.DrawRenderers(cullingResults, ref drawingSettings, ref filteringSettings);
 		commandBuffer.EndSample(SampleName);
-        ExecuteBuffer();
+		ExecuteBuffer();
 		context.Submit();
-    }
+	}
 
 	private void SetupForRender()
 	{
 		context.SetupCameraProperties(camera);
 		CameraClearFlags cameraClearFlags = camera.clearFlags;
-        if (postprocessProfiler.isActive)
-        {
+		if (postprocessProfiler.isActive)
+		{
 			if (cameraClearFlags < CameraClearFlags.Color) cameraClearFlags = CameraClearFlags.Color;
 		}
 		commandBuffer.SetRenderTarget(renderTargetBinding);
 		commandBuffer.ClearRenderTarget(false, cameraClearFlags == CameraClearFlags.Color, cameraClearFlags == CameraClearFlags.Color ? camera.backgroundColor.linear : Color.clear);
 		commandBuffer.BeginSample(SampleName);
 		ExecuteBuffer();
-    }
+	}
 
 	private void DrawVisibleGeometry(bool useDynamicBatching, bool useGPUInstancing, bool useLightsPerObject)
 	{
 		PerObjectData lightsPerObjectFlags = useLightsPerObject ? PerObjectData.LightData | PerObjectData.LightIndices : PerObjectData.None;
+
+		// 不透明
 		SortingSettings sortingSettings = new SortingSettings(camera)
 		{
 			criteria = SortingCriteria.CommonOpaque
@@ -169,7 +172,6 @@ public partial class MainCameraRenderer
 			enableInstancing = useGPUInstancing
 		};
 		FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
-		// 不透明
 		drawingSettings.perObjectData = PerObjectData.ReflectionProbes |
 			PerObjectData.Lightmaps |
 			PerObjectData.ShadowMask |
@@ -179,14 +181,28 @@ public partial class MainCameraRenderer
 			PerObjectData.OcclusionProbeProxyVolume |
 			lightsPerObjectFlags;
 
-		filteringSettings.renderQueueRange = RenderQueueRange.opaque;
 		context.DrawRenderers(cullingResults, ref drawingSettings, ref filteringSettings);
 
+		// SkyBox
 		context.DrawSkybox(camera);
 
+		// Fur
+		drawingSettings.SetShaderPassName(0, BPipline.bshaderTagIds[3]);
+		sortingSettings.criteria = SortingCriteria.CommonOpaque;
+		filteringSettings.renderQueueRange = RenderQueueRange.transparent;
+
+		for (int i = 0; i < 10; ++i)
+		{
+			commandBuffer.SetGlobalFloat("_FurOffset", i / 10.0f);
+			ExecuteBuffer();
+			context.DrawRenderers(cullingResults, ref drawingSettings, ref filteringSettings);
+		}
+
 		// 透明
-		sortingSettings.criteria = SortingCriteria.CommonTransparent;
+		sortingSettings.criteria = SortingCriteria.CommonOpaque;
 		drawingSettings.sortingSettings = sortingSettings;
+		drawingSettings.SetShaderPassName(0, BPipline.bshaderTagIds[1]);
+		drawingSettings.SetShaderPassName(1, BPipline.bshaderTagIds[2]);
 		filteringSettings.renderQueueRange = RenderQueueRange.transparent;
 		context.DrawRenderers(cullingResults, ref drawingSettings, ref filteringSettings);
 	}
@@ -204,16 +220,16 @@ public partial class MainCameraRenderer
 
 	private void Submit()
 	{
-        commandBuffer.EndSample(SampleName);
+		commandBuffer.EndSample(SampleName);
 		ExecuteBuffer();
 		context.Submit();
 	}
 
 	private void CleanUp()
-    {
+	{
 		lightings.Cleanup();
-        if (postprocessProfiler.isActive)
-        {
+		if (postprocessProfiler.isActive)
+		{
 			commandBuffer.ReleaseTemporaryRT(colorBufferId);
 			commandBuffer.ReleaseTemporaryRT(addBufferId);
 			commandBuffer.ReleaseTemporaryRT(depthBufferId);
