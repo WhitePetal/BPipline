@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -21,8 +21,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_2019_4_25;UNITY_2019_4;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_RUNTIME_PERMISSIONS;ENABLE_ENGINE_CODE_STRIPPING;ENABLE_ONSCREEN_KEYBOARD;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;ENABLE_VIDEO;PLATFORM_ANDROID;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO;ENABLE_SPATIALTRACKING;UNITY_ASTC_ONLY_DECOMPRESS;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <OutputPath>Temp\Bin\Debug\</OutputPath>
+    <DefineConstants>UNITY_2019_4_25;UNITY_2019_4;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_RUNTIME_PERMISSIONS;ENABLE_ENGINE_CODE_STRIPPING;ENABLE_ONSCREEN_KEYBOARD;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;ENABLE_VIDEO;PLATFORM_ANDROID;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO;ENABLE_SPATIALTRACKING;UNITY_ASTC_ONLY_DECOMPRESS;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;UNITY_POST_PROCESSING_STACK_V2;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -46,8 +46,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>2.10.2.0</UnityProjectGeneratorVersion>
+    <UnityProjectGenerator>Package</UnityProjectGenerator>
+    <UnityProjectGeneratorVersion>2.0.11</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2019.4.25f1c1</UnityVersion>
@@ -56,62 +56,63 @@
     <Analyzer Include="/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Analyzers/Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="UnityEngine">
-      <HintPath>/Applications/Unity/Hub/Editor/2019.4.25f1c1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>/Applications/Unity/Hub/Editor/2019.4.25f1c1/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
-    </Reference>
+    <Compile Include="Assets/BPipline/Runtime/BPipline.Editor.cs" />
+    <Compile Include="Assets/BPipline/Runtime/BPipline.cs" />
+    <Compile Include="Assets/BPipline/Runtime/BPiplineAsset.cs" />
+    <Compile Include="Assets/BPipline/Runtime/CullMgr.cs" />
+    <Compile Include="Assets/BPipline/Runtime/Lightings.cs" />
+    <Compile Include="Assets/BPipline/Runtime/MainCameraRenderer.Editor.cs" />
+    <Compile Include="Assets/BPipline/Runtime/MainCameraRenderer.cs" />
+    <Compile Include="Assets/BPipline/Runtime/PostEffectBase.cs" />
+    <Compile Include="Assets/BPipline/Runtime/PostProcessEffects/Bloom.cs" />
+    <Compile Include="Assets/BPipline/Runtime/PostProcessEffects/GaussBlur.cs" />
+    <Compile Include="Assets/BPipline/Runtime/PostProcessEffects/PixelCircle.cs" />
+    <Compile Include="Assets/BPipline/Runtime/PostProcessEffects/PixelHexagon.cs" />
+    <Compile Include="Assets/BPipline/Runtime/PostProcessEffects/PixelRhombus.cs" />
+    <Compile Include="Assets/BPipline/Runtime/PostProcessEffects/RadiuBlur.cs" />
+    <Compile Include="Assets/BPipline/Runtime/PostProcessProfiler.Editor.cs" />
+    <Compile Include="Assets/BPipline/Runtime/PostProcessProfiler.cs" />
+    <Compile Include="Assets/BPipline/Runtime/PostProcessSettings.cs" />
+    <Compile Include="Assets/BPipline/Runtime/ShadowSetttings.cs" />
+    <Compile Include="Assets/BPipline/Runtime/Shadows.cs" />
+    <Compile Include="Assets/BPipline/Runtime/Test/CameraMove.cs" />
+    <Compile Include="Assets/BPipline/Runtime/VolumeShadow/Node.cs" />
+    <Compile Include="Assets/BPipline/Runtime/VolumeShadow/Tree.cs" />
+    <Compile Include="Assets/BPipline/Runtime/VolumeShadow/TreePreviewDrawer.cs" />
+    <Compile Include="Assets/BPipline/Runtime/VolumeShadow/VolumedShadowData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BPipline\Runtime\BPipline.Editor.cs" />
-    <Compile Include="Assets\BPipline\Runtime\BPipline.cs" />
-    <Compile Include="Assets\BPipline\Runtime\BPiplineAsset.cs" />
-    <Compile Include="Assets\BPipline\Runtime\CullMgr.cs" />
-    <Compile Include="Assets\BPipline\Runtime\Lightings.cs" />
-    <Compile Include="Assets\BPipline\Runtime\MainCameraRenderer.Editor.cs" />
-    <Compile Include="Assets\BPipline\Runtime\MainCameraRenderer.cs" />
-    <Compile Include="Assets\BPipline\Runtime\PostEffectBase.cs" />
-    <Compile Include="Assets\BPipline\Runtime\PostProcessEffects\Bloom.cs" />
-    <Compile Include="Assets\BPipline\Runtime\PostProcessEffects\GaussBlur.cs" />
-    <Compile Include="Assets\BPipline\Runtime\PostProcessEffects\PixelCircle.cs" />
-    <Compile Include="Assets\BPipline\Runtime\PostProcessEffects\PixelHexagon.cs" />
-    <Compile Include="Assets\BPipline\Runtime\PostProcessEffects\PixelRhombus.cs" />
-    <Compile Include="Assets\BPipline\Runtime\PostProcessEffects\RadiuBlur.cs" />
-    <Compile Include="Assets\BPipline\Runtime\PostProcessProfiler.Editor.cs" />
-    <Compile Include="Assets\BPipline\Runtime\PostProcessProfiler.cs" />
-    <Compile Include="Assets\BPipline\Runtime\PostProcessSettings.cs" />
-    <Compile Include="Assets\BPipline\Runtime\ShadowSetttings.cs" />
-    <Compile Include="Assets\BPipline\Runtime\Shadows.cs" />
-    <Compile Include="Assets\BPipline\Runtime\Test\CameraMove.cs" />
-    <None Include="Assets\BPipline\Shaders\PostProcessStack.shader" />
-    <None Include="Assets\BPipline\Shaders\Other\Fur.shader" />
-    <None Include="Assets\BPipline\Shaders\Unlit.shader" />
-    <None Include="Assets\BPipline\Shaders\Libiary\UnityGI.hlsl" />
-    <None Include="Assets\BPipline\Shaders\Libiary\UnityShadow.hlsl" />
-    <None Include="Assets\BPipline\Shaders\Effect\AlphaBlend.shader" />
-    <None Include="Assets\BPipline\Shaders\Important_NoMultiRender_NoPreDepth_NoHDR_Gama\PBR_BSDF_Alpha_LUT.shader" />
-    <None Include="Assets\BPipline\Shaders\NoLight\NoLightMatcap.shader" />
-    <None Include="Assets\BPipline\Shaders\NoLight\CustomeLightMap.shader" />
-    <None Include="Assets\BPipline\Shaders\Important_NoMultiRender_NoPreDepth_NoHDR_Gama\PBR_BRDF_Alpha_LUT.shader" />
-    <None Include="Assets\BPipline\Shaders\Important_NoMultiRender_NoPreDepth_NoHDR_Gama\PBR_BRDF_LUT_Mid.shader" />
-    <None Include="Assets\BPipline\ComputeShaders\PostProcessStack.compute" />
-    <None Include="Assets\BPipline\Shaders\Effect\Scroll2TexBlend.shader" />
-    <None Include="Assets\BPipline\Shaders\NoLight\CommonLightMap.shader" />
-    <None Include="Assets\BPipline\Shaders\Libiary\Common.hlsl" />
-    <None Include="Assets\BPipline\Shaders\NoLight\CommonLightMapClip.shader" />
-    <None Include="Assets\BPipline\Shaders\Important_NoMultiRender_NoPreDepth_NoHDR_Gama\PBR_BRDF_LUT_Clip.shader" />
-    <None Include="Assets\BPipline\Shaders\Libiary\UnityLight.hlsl" />
-    <None Include="Assets\BPipline\Shaders\Important_NoMultiRender_NoPreDepth_NoHDR_Gama\PBR_BSDF_LUT.shader" />
-    <None Include="Assets\BPipline\Shaders\Libiary\TransformLibiary.hlsl" />
-    <None Include="Assets\BPipline\Shaders\Important_NoMultiRender_NoPreDepth_NoHDR_Gama\PBR_BRDF_LUT.shader" />
-    <None Include="Assets\BPipline\Shaders\Libiary\ShadingFunctions.hlsl" />
-    <None Include="Assets\BPipline\Shaders\Effect\Additive.shader" />
-    <None Include="Assets\BPipline\Shaders\Libiary\PostProcessStack.hlsl" />
-    <None Include="Assets\BPipline\Shaders\Libiary\ShaderUtil.hlsl" />
-    <None Include="Assets\BPipline\Shaders\Important_NoMultiRender_NoPreDepth_NoHDR_Gama\PBR_BSSSDF_LUT.shader" />
-    <None Include="Assets\BPipline\Shaders\Libiary\UnityInput.hlsl" />
-    <None Include="Assets\BPipline\Shaders\NotImportant\HalfLambert.shader" />
+    <None Include="Assets/BPipline/Shaders/PostProcessStack.shader" />
+    <None Include="Assets/BPipline/Runtime/VolumeShadow/SSQuadShadow.shader" />
+    <None Include="Assets/BPipline/Shaders/Other/Fur.shader" />
+    <None Include="Assets/BPipline/Shaders/Unlit.shader" />
+    <None Include="Assets/BPipline/Shaders/Libiary/UnityGI.hlsl" />
+    <None Include="Assets/BPipline/Shaders/Libiary/UnityShadow.hlsl" />
+    <None Include="Assets/BPipline/Shaders/Effect/AlphaBlend.shader" />
+    <None Include="Assets/BPipline/Shaders/Important_NoMultiRender_NoPreDepth_NoHDR_Gama/PBR_BSDF_Alpha_LUT.shader" />
+    <None Include="Assets/BPipline/Shaders/NoLight/NoLightMatcap.shader" />
+    <None Include="Assets/BPipline/Shaders/NoLight/CustomeLightMap.shader" />
+    <None Include="Assets/BPipline/Shaders/Important_NoMultiRender_NoPreDepth_NoHDR_Gama/PBR_BRDF_Alpha_LUT.shader" />
+    <None Include="Assets/BPipline/Shaders/Important_NoMultiRender_NoPreDepth_NoHDR_Gama/PBR_BRDF_LUT_Mid.shader" />
+    <None Include="Assets/BPipline/ComputeShaders/PostProcessStack.compute" />
+    <None Include="Assets/BPipline/Shaders/Effect/Scroll2TexBlend.shader" />
+    <None Include="Assets/BPipline/Shaders/NoLight/CommonLightMap.shader" />
+    <None Include="Assets/BPipline/Shaders/Libiary/Common.hlsl" />
+    <None Include="Assets/BPipline/Shaders/NoLight/CommonLightMapClip.shader" />
+    <None Include="Assets/BPipline/Shaders/Important_NoMultiRender_NoPreDepth_NoHDR_Gama/PBR_BRDF_LUT_Clip.shader" />
+    <None Include="Assets/BPipline/Shaders/Libiary/UnityLight.hlsl" />
+    <None Include="Assets/BPipline/Shaders/Important_NoMultiRender_NoPreDepth_NoHDR_Gama/PBR_BSDF_LUT.shader" />
+    <None Include="Assets/BPipline/Shaders/Libiary/TransformLibiary.hlsl" />
+    <None Include="Assets/BPipline/Shaders/Important_NoMultiRender_NoPreDepth_NoHDR_Gama/PBR_BRDF_LUT.shader" />
+    <None Include="Assets/BPipline/Shaders/Libiary/ShadingFunctions.hlsl" />
+    <None Include="Assets/BPipline/Shaders/Effect/Additive.shader" />
+    <None Include="Assets/BPipline/Shaders/Libiary/PostProcessStack.hlsl" />
+    <None Include="Assets/BPipline/Shaders/Libiary/ShaderUtil.hlsl" />
+    <None Include="Assets/BPipline/Shaders/Important_NoMultiRender_NoPreDepth_NoHDR_Gama/PBR_BSSSDF_LUT.shader" />
+    <None Include="Assets/BPipline/Shaders/Libiary/UnityInput.hlsl" />
+    <None Include="Assets/BPipline/Shaders/NotImportant/HalfLambert.shader" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>/Applications/Unity/Hub/Editor/2019.4.25f1c1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -635,55 +636,83 @@
       <HintPath>/Applications/Unity/Hub/Editor/2019.4.25f1c1/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.CacheServer">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/UnityEditor.CacheServer.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/UnityEditor.CacheServer.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ScriptableBuildPipeline.Editor">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ScriptableBuildPipeline">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>/Users/baiaoxiang/BPipline/BRenderPipline/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.XR.LegacyInputHelpers">
+      <HintPath>Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Runtime">
+      <HintPath>Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SpatialTracking">
+      <HintPath>Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpatialTracking">
+      <HintPath>Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualStudio.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.XR.LegacyInputHelpers">
+      <HintPath>Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

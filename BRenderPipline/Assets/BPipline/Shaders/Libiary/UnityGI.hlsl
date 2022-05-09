@@ -176,7 +176,7 @@ half3 Custome_SH(half3 n)
 
     // Final (5th) quadratic (L2) polynomial
     half vC = nForSH.x * nForSH.x - nForSH.y * nForSH.y;
-    x2 = _CustomeSHC.rgb * vC;
+    x2 = GET_PROP(_CustomeSHC).rgb * vC;
 
     half3 sh = max(0.0, (x + x1 + x2));
     // sh = pow(sh, 1.0 / 2.2);

@@ -22,9 +22,9 @@ MonoBehaviour:
     blurScale: 1.86
     aoStrength: 1
   hdr:
-    enable: 0
+    enable: 1
     aces_tonemapping: 1
   fxaa: 0
   filterMode: 1
-  renderTextureFormat: 7
+  renderTextureFormat: 2
   postProcessEffects: []

@@ -68,7 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 0f8f0d4d656e94e228b359bc3064aeb8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -140,8 +140,8 @@ Material:
     - _EmissionPointPulse: {r: 100, g: 1, b: 1, a: 1}
     - _Fresnel: {r: 0.09, g: 0.09, b: 0.09, a: 1}
     - _KdKsExpoureParalxScale: {r: 0.32, g: 0.25, b: 0, a: 0.04}
-    - _KdsExpoureParalxScale: {r: 1, g: 0.5, b: 0.04, a: 0}
-    - _MetallicRoughnessAO: {r: 0, g: 0.077, b: 1, a: 1}
+    - _KdsExpoureParalxScale: {r: 1, g: 0.2, b: 0.04, a: 0}
+    - _MetallicRoughnessAO: {r: 0, g: 0.758, b: 1, a: 1}
     - _NormalScales: {r: 1, g: 1, b: 0, a: 0}
     - _PointLightColor: {r: 0.5492168, g: 0.6934489, b: 0.9622641, a: 1}
     - _PointLightPos: {r: 1, g: 0, b: 0, a: 1}

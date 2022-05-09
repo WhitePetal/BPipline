@@ -1,16 +1,21 @@
 ﻿<Properties StartupConfiguration="{E9874D25-E251-AEF9-CFCC-E7D21E6968BB}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/BPipline/Runtime/Shadows.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Editor/ShaderInspector/MShaderGUI.cs">
     <Files>
-      <File FileName="Assets/BPipline/Runtime/BPipline.cs" Line="12" Column="29" />
-      <File FileName="Assets/BPipline/Runtime/BPiplineAsset.cs" Line="20" Column="18" />
-      <File FileName="Assets/BPipline/Runtime/MainCameraRenderer.cs" Line="113" Column="3" />
-      <File FileName="Assets/BPipline/Runtime/PostProcessProfiler.cs" Line="89" Column="39" />
-      <File FileName="Assets/BPipline/Runtime/PostProcessSettings.cs" Line="81" Column="20" />
-      <File FileName="Assets/BPipline/Runtime/PostEffectBase.cs" Line="6" Column="23" />
-      <File FileName="Assets/BPipline/Runtime/PostProcessEffects/Bloom.cs" Line="6" Column="27" />
-      <File FileName="Assets/Editor/ShaderInspector/BRDF_LUT_Inspector.cs" Line="6" Column="38" />
+      <File FileName="Assets/BPipline/Runtime/PostProcessProfiler.cs" Line="1" Column="1" />
+      <File FileName="Assets/BPipline/Runtime/BPipline.cs" />
+      <File FileName="Assets/BPipline/Runtime/BPiplineAsset.cs" />
+      <File FileName="Assets/BPipline/Runtime/MainCameraRenderer.cs" Line="116" Column="110" />
+      <File FileName="Assets/BPipline/Runtime/PostProcessSettings.cs" />
+      <File FileName="Assets/BPipline/Runtime/PostEffectBase.cs" />
+      <File FileName="Assets/BPipline/Runtime/PostProcessEffects/Bloom.cs" />
+      <File FileName="Assets/Editor/ShaderInspector/BRDF_LUT_Inspector.cs" />
       <File FileName="Assets/Editor/ShaderInspector/MShaderGUI.cs" Line="17" Column="48" />
-      <File FileName="Assets/BPipline/Runtime/Shadows.cs" Line="296" Column="1" />
+      <File FileName="Assets/BPipline/Runtime/Shadows.cs" />
+      <File FileName="Assets/BPipline/Editor/VolumeShadow/TreeBaker.cs" />
+      <File FileName="Assets/BPipline/Runtime/VolumeShadow/Node.cs" />
+      <File FileName="Assets/BPipline/Runtime/VolumeShadow/Tree.cs" />
+      <File FileName="Assets/BPipline/Runtime/VolumeShadow/TreePreviewDrawer.cs" />
+      <File FileName="Assets/BPipline/Runtime/VolumeShadow/VolumedShadowData.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,13 +23,18 @@
           <Node name="BRenderPipline" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="BPipline" expanded="True">
+                <Node name="Editor" expanded="True">
+                  <Node name="VolumeShadow" expanded="True" />
+                </Node>
                 <Node name="Runtime" expanded="True">
                   <Node name="PostProcessEffects" expanded="True" />
-                  <Node name="Shadows.cs" selected="True" />
+                  <Node name="VolumeShadow" expanded="True" />
                 </Node>
               </Node>
               <Node name="Editor" expanded="True">
-                <Node name="ShaderInspector" expanded="True" />
+                <Node name="ShaderInspector" expanded="True">
+                  <Node name="MShaderGUI.cs" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
@@ -34,7 +44,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="17822d1b-78e9-40d4-ac7b-8ce7252a0701" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="64f4530b-7cc8-4b99-b3df-908d69a7dbf9" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

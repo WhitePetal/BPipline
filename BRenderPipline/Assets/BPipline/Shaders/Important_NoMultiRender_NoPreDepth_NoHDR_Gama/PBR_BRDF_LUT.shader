@@ -280,8 +280,8 @@ Shader "Lit/PBR/High/PBR_BRDF_LUT"
                 
                 mainTex.rgb *= mainTex.rgb;
                 shadingParams.albedo = lerp(GET_PROP(_DiffuseColor) * mainTex.rgb, GET_PROP(_DetilColor) * detil.rgb, detilMask);
-                shadingParams.specular = lerp(shadingParams.albedo, GET_PROP(_Fresnel), oneMinusMetallic) * _KdsExpoureParalxScale.x;
-                shadingParams.albedo *= oneMinusMetallic * _KdsExpoureParalxScale.x;
+                shadingParams.specular = lerp(shadingParams.albedo, GET_PROP(_Fresnel), oneMinusMetallic) * GET_PROP(_KdsExpoureParalxScale).x;
+                shadingParams.albedo *= oneMinusMetallic * GET_PROP(_KdsExpoureParalxScale).x;
 
                 shadingParams.depth = i.pos_world.w;
 

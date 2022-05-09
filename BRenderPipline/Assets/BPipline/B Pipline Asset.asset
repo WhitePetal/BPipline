@@ -19,9 +19,9 @@ MonoBehaviour:
   useMultiRenderTarget: 0
   usePreDepth: 0
   shadowSetttings:
-    maxDistance: 50
+    maxDistance: 300
     distanceFade: 0.5
-    shadowColor: {r: 0.58592916, g: 0.87355644, b: 0.9339623, a: 1}
+    shadowColor: {r: 0.60114807, g: 0.7209906, b: 0.745283, a: 1}
     directional:
       shadowMapSize: 1024
       filterMode: 2

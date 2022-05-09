@@ -113,7 +113,7 @@ public partial class MainCameraRenderer
 	{
 		if (postprocessProfiler.isActive)
 		{
-			if (postprocessSettings.hdr.enable) postprocessSettings.renderTextureFormat = RenderTextureFormat.DefaultHDR;
+			if (postprocessSettings.hdr.enable) postprocessSettings.renderTextureFormat = RenderTextureFormat.ARGBHalf;
 			else postprocessSettings.renderTextureFormat = RenderTextureFormat.Default;
 		}
 		commandBuffer.GetTemporaryRT(colorBufferId, camera.pixelWidth, camera.pixelHeight, 0, postprocessSettings.filterMode, postprocessSettings.renderTextureFormat, RenderTextureReadWrite.Default);
@@ -158,8 +158,16 @@ public partial class MainCameraRenderer
 		{
 			if (cameraClearFlags < CameraClearFlags.Color) cameraClearFlags = CameraClearFlags.Color;
 		}
-		if (useMultiRenderTarget) commandBuffer.SetRenderTarget(renderTargetBinding_MultiRender);
-		else commandBuffer.SetRenderTarget(renderTargetBinding_Default);
+		if (useMultiRenderTarget)
+		{
+			commandBuffer.EnableShaderKeyword("_MULTI_RENDER_TARGET");
+			commandBuffer.SetRenderTarget(renderTargetBinding_MultiRender);
+		}
+		else
+		{
+			commandBuffer.DisableShaderKeyword("_MULTI_RENDER_TARGET");
+			commandBuffer.SetRenderTarget(renderTargetBinding_Default);
+		}
 		commandBuffer.ClearRenderTarget(!usePreDepth, cameraClearFlags == CameraClearFlags.Color, cameraClearFlags == CameraClearFlags.Color ? camera.backgroundColor.linear : Color.clear);
 		commandBuffer.BeginSample(SampleName);
 		ExecuteBuffer();

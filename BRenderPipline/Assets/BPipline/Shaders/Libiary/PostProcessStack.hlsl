@@ -195,7 +195,7 @@ CBUFFER_END
     half4 ACEST_ToneMapping_Fragment(Varyings i) : SV_TARGET
     {
         half4 c = SAMPLE_TEXTURE2D_LOD(_PostProcessSource, sampler_linear_clamp, i.uv_screen, 0);
-        return half4(ToneMapping_ACES_DS(c.rgb, _ACES_Tonemapping_Factor), c.a);
+        return half4(ToneMapping_ACES_To_sRGB(c.rgb, _ACES_Tonemapping_Factor), c.a);
     }
 // -----------------------------------
 

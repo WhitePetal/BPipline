@@ -14,7 +14,6 @@ public class MShaderGUI : ShaderGUI
         this.editor = materialEditor;
         this.target = (Material)this.editor.target;
         this.properties = properties;
-        base.OnGUI(materialEditor, properties);
     }
 
     protected static GUIContent staticLable = new GUIContent();
