@@ -64,7 +64,7 @@ public class PostProcessSettings : ScriptableObject
     
     public bool fxaa = false;
     public FilterMode filterMode = FilterMode.Bilinear;
-    [HideInInspector]
+    //[HideInInspector]
     public RenderTextureFormat renderTextureFormat = RenderTextureFormat.Default;
 
     [HideInInspector]

@@ -19,21 +19,21 @@ MonoBehaviour:
   useMultiRenderTarget: 0
   usePreDepth: 0
   shadowSetttings:
-    maxDistance: 70
-    distanceFade: 0.1
-    shadowColor: {r: 0.29334286, g: 0.54296756, b: 0.6037736, a: 1}
+    maxDistance: 50
+    distanceFade: 0.5
+    shadowColor: {r: 0.58592916, g: 0.87355644, b: 0.9339623, a: 1}
     directional:
-      shadowMapSize: 512
-      filterMode: 1
-      cascadeCount: 2
-      cascadeFade: 0.1
-      cascadeRatio1: 0.5
-      cascadeRatio2: 0.5
-      cascadeRatio3: 0.8
-      cascadeBlend: 2
+      shadowMapSize: 1024
+      filterMode: 2
+      cascadeCount: 3
+      cascadeFade: 0.5
+      cascadeRatio1: 0.125
+      cascadeRatio2: 0.25
+      cascadeRatio3: 0.5
+      cascadeBlend: 1
     other:
-      ShadowMapSize: 1024
-      filterMode: 0
+      ShadowMapSize: 512
+      filterMode: 2
   postprocessSettings: {fileID: 11400000, guid: b85d823b0a4494b638fa78a07fbd9b82,
     type: 2}
   furRenderTimes: 10

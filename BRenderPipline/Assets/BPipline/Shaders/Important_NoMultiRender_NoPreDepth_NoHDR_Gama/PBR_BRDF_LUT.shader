@@ -328,7 +328,6 @@ Shader "Lit/PBR/High/PBR_BRDF_LUT"
                 #endif
 
                 half3 col = (brdfCol_diffuse + brdfCol_specular);
-                return half4(col, 1.0);
 
                 #ifdef _Emission
                     brdfCol_emi = emission.rgb * shadingParams.ndotv;
@@ -344,8 +343,8 @@ Shader "Lit/PBR/High/PBR_BRDF_LUT"
                 #endif
 
                 col.rgb += pointEmission;
-                half bloom = EncodeBloomLuminanceImpl(col.rgb, GET_PROP(_PostProcessFactors).x, GET_PROP(_PostProcessFactors).y);
-                col.rgb = lerp(col.rgb, col.rgb * GET_PROP(_BloomColor), bloom);
+                half bloom = EncodeBloomLuminanceImpl(brdfCol_specular.rgb, GET_PROP(_PostProcessFactors).x, GET_PROP(_PostProcessFactors).y);
+                col.rgb = lerp(col.rgb * GET_PROP(_BloomColor), col.rgb, bloom);
                 return float4(col, bloom);
             }
 

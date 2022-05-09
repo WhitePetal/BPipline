@@ -3,7 +3,9 @@
 #include "Assets/BPipline/Shaders/Libiary/ShaderUtil.hlsl"
 
 TEXTURE2D(_PostProcessSource);
+#ifdef _MULTI_RENDER_TARGET
 TEXTURE2D(_AddBuffer);
+#endif
 TEXTURE2D(_DepthBuffer);
 TEXTURE2D(_PostProcessBlend);
 SAMPLER(sampler_linear_clamp);
@@ -177,8 +179,12 @@ CBUFFER_END
     half4 BloomExtractFragment(Varyings i) : SV_TARGET
     {
         half4 c = SAMPLE_TEXTURE2D_LOD(_PostProcessSource, sampler_linear_clamp, i.uv_screen, 0);
+        #ifdef _MULTI_RENDER_TARGET
         half4 flags = SAMPLE_TEXTURE2D_LOD(_AddBuffer, sampler_linear_clamp, i.uv_screen, 0);
         half val = DecodeBloomLuminanceImpl(flags.r);
+        #else
+        half val = DecodeBloomLuminanceImpl(c.a);
+        #endif
         c.rgb *= val * _BloomFactor.rgb * _BloomFactor.a;
         return c;
     }
@@ -189,7 +195,7 @@ CBUFFER_END
     half4 ACEST_ToneMapping_Fragment(Varyings i) : SV_TARGET
     {
         half4 c = SAMPLE_TEXTURE2D_LOD(_PostProcessSource, sampler_linear_clamp, i.uv_screen, 0);
-        return half4(ToneMapping_ACES(c.rgb, _ACES_Tonemapping_Factor), c.a);
+        return half4(ToneMapping_ACES_DS(c.rgb, _ACES_Tonemapping_Factor), c.a);
     }
 // -----------------------------------
 

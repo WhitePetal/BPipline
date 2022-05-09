@@ -56,9 +56,9 @@ inline void BRDF_FromLUT_DirLight(in ShadingParams params, out half3 brdfCol_dif
     half g = 1.0 / fgd.y - 1.0;
     g = min(1.0, (min(params.ndotv * g, ndotl * g)));
     half d = 1.0 / fgd.z - 1.0;
-    half3 shadowAtten = GetDirectionalShadowAttenuation(params.lightIndex, params.gi.shadowMask, params.depth, params.pos_world, params.pos_clip.xy, params.n);
-    brdfCol_diffuse = (1.0 - f) * params.albedo * min(ndotl, shadowAtten) * _DirectionalLightColors[params.lightIndex].rgb;
-    brdfCol_specular = _DirectionalLightColors[params.lightIndex].rgb * 0.7854 * f * g * d / params.ndotv;
+    half3 shadowAtten = min(ndotl, GetDirectionalShadowAttenuation(params.lightIndex, params.gi.shadowMask, params.depth, params.pos_world, params.pos_clip.xy, params.n));
+    brdfCol_diffuse = (1.0 - f) * params.albedo * shadowAtten * _DirectionalLightColors[params.lightIndex].rgb;
+    brdfCol_specular = _DirectionalLightColors[params.lightIndex].rgb * 0.7854 * shadowAtten * f * g * d / params.ndotv;
 }
 #endif
 

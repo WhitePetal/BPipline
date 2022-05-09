@@ -215,30 +215,59 @@ half EmissionPoint(float2 uv, float2 density, float cutoff, half mask, half4 noi
 half EncodeBloomLuminanceImpl(half3 color, half luminance, half threshold)
 {
     half l = dot(color, half3(0.299f, 0.587f, 0.114f));
-    l = max(l - threshold - _GlobalBloomThreshold.x, 0.001) * luminance;
+    l = max(l - threshold, 0.001) * luminance;
     l = l / (1.0 + l);
-    return l;
+    return 1.0 - l;
 }
 
 half DecodeBloomLuminanceImpl(half flag)
 {
-    half l = max(flag, 0.0001);
+    half l = max(1.0 - flag, 0.0001);
     l = 1.0 / ((1.0 / l) - 1.0);
     return l;
 }
 
 half3 ToneMapping_ACES(half3 color, half adapted_lum)
 {
-	const float A = 2.51f;
-	const float B = 0.03f;
-	const float C = 2.43f;
-	const float D = 0.59f;
-	const float E = 0.14f;
+	const half A = 2.51;
+	const half B = 0.03;
+	const half C = 2.43;
+	const half D = 0.59;
+	const half E = 0.14;
 
 	color *= adapted_lum;
 	return (color * (A * color + B)) / (color * (C * color + D) + E);
 }
 
+half3 ToneMapping_ACES_DS(half3 color, half adapted_lum)
+{
+    color *= adapted_lum;
+    return half3(
+        dot(half3(0.613118, 0.341182, 0.0457873), color),
+        dot(half3(0.0699341, 0.918103, 0.0119328), color),
+        dot(half3(0.020463, 0.106769, 0.872716), color)
+    );
+}
+
+half3 ACES_To_Linear(half3 col)
+{
+    half3 res = half3(
+        dot(half3(1.7049, -0.62416, -0.0809141), col),
+        dot(half3(-0.129553, 1.13837, -0.00876801), col),
+        dot(half3(-0.0241261, -0.124633, 1.14882), col)
+    );
+    return max(0.0001, res);
+}
+
+half3 ACES_To_sRGB(half3 col)
+{
+    return sqrt(ACES_To_Linear(col));
+}
+
+half3 ToneMapping_ACES_To_sRGB(half3 color, half adapted_lum)
+{
+    return ACES_To_sRGB(color * adapted_lum);
+}
 inline float2 EncodeFloatRG( float v )
 {
     float2 kEncodeMul = float2(1.0, 255.0);

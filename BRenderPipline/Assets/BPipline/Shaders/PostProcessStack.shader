@@ -9,6 +9,7 @@
         HLSLINCLUDE
             #include "Assets/BPipline/Shaders/Libiary/Common.hlsl"
             #include "Assets/BPipline/Shaders/Libiary/PostProcessStack.hlsl"
+            #pragma multi_compile __ _MULTI_RENDER_TARGET
         ENDHLSL
 
         Pass

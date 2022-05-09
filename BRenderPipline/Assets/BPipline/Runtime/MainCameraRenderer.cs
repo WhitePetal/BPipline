@@ -202,7 +202,7 @@ public partial class MainCameraRenderer
 		float furRate = 1.0f / furRenderTimes;
 		for (int i = 0; i < furRenderTimes; ++i)
 		{
-			commandBuffer.SetGlobalFloat("_FurOffset", furRenderTimes);
+			commandBuffer.SetGlobalFloat("_FurOffset", i * furRate);
 			ExecuteBuffer();
 			context.DrawRenderers(cullingResults, ref drawingSettings, ref filteringSettings);
 		}
