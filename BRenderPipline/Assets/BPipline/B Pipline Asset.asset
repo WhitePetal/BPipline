@@ -16,6 +16,8 @@ MonoBehaviour:
   useGPUInstancing: 1
   useSRPBatching: 1
   useLightsPerObject: 0
+  useMultiRenderTarget: 0
+  usePreDepth: 0
   shadowSetttings:
     maxDistance: 70
     distanceFade: 0.1
@@ -34,3 +36,4 @@ MonoBehaviour:
       filterMode: 0
   postprocessSettings: {fileID: 11400000, guid: b85d823b0a4494b638fa78a07fbd9b82,
     type: 2}
+  furRenderTimes: 10

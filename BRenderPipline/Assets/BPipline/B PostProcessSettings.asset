@@ -24,7 +24,7 @@ MonoBehaviour:
   hdr:
     enable: 1
     aces_tonemapping: 1
-  fxaa: 1
+  fxaa: 0
   filterMode: 1
   renderTextureFormat: 9
   postProcessEffects: []

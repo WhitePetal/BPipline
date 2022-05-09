@@ -8,19 +8,19 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Lit 1
-  m_Shader: {fileID: 4800000, guid: a7310ad5287594367ac02f1ae123b8d5, type: 3}
+  m_Shader: {fileID: 4800000, guid: 3c71273eacf664b2bac1fe01ea5e99cd, type: 3}
   m_ShaderKeywords: _EmissionPointOff _RECEIVE_SHADOWS
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2500
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _AmbientTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 8900000, guid: 777983328db224fb59613776170d3ad7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -101,6 +101,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EmissionStrength: 1
+    - _EnvRotAngle: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -108,17 +109,26 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _ShaderLOD: -1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _AmbientColor: {r: 0.29999998, g: 0.29999998, b: 0.29999998, a: 1}
+    - _AmbientColor: {r: 0, g: 0, b: 0, a: 1}
+    - _AmbientSpecStrength_AmbientStrength: {r: 1, g: 1, b: 0, a: 0}
     - _AmbientSpecStrength_SHStrength: {r: 0.5, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 0.8867924, g: 0.18823427, b: 0.18823427, a: 1}
     - _BloomColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _CustomeSHAb: {r: 0.01678807, g: -0.0004689759, b: -0.001885967, a: 0.9751976}
+    - _CustomeSHAg: {r: 0.01670426, g: -0.0004472707, b: -0.001802313, a: 0.9751503}
+    - _CustomeSHAr: {r: 0.01709598, g: -0.0007387098, b: -0.001451614, a: 0.9753562}
+    - _CustomeSHBb: {r: 0.0001895505, g: -0.001850412, b: 0.03777213, a: -0.001312961}
+    - _CustomeSHBg: {r: 0.0002183499, g: -0.001791723, b: 0.03780146, a: -0.001317438}
+    - _CustomeSHBr: {r: -0.0007126437, g: -0.002147109, b: 0.03780773, a: -0.0002121397}
+    - _CustomeSHC: {r: -0.0003781151, g: -0.000508558, b: -0.000415979, a: -0.0006361097}
     - _DetilColor: {r: 1, g: 1, b: 1, a: 1}
     - _DiffuseColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
@@ -128,9 +138,10 @@ Material:
     - _EmissionPointDensity: {r: 128, g: 64, b: 0, a: 0}
     - _EmissionPointNoiseOffset: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionPointPulse: {r: 100, g: 1, b: 1, a: 1}
-    - _Fresnel: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
+    - _Fresnel: {r: 0.09, g: 0.09, b: 0.09, a: 1}
     - _KdKsExpoureParalxScale: {r: 0.32, g: 0.25, b: 0, a: 0.04}
-    - _MetallicRoughnessAO: {r: 0, g: 0.641, b: 1, a: 1}
+    - _KdsExpoureParalxScale: {r: 1, g: 0.5, b: 0.04, a: 0}
+    - _MetallicRoughnessAO: {r: 0, g: 0.131, b: 1, a: 1}
     - _NormalScales: {r: 1, g: 1, b: 0, a: 0}
     - _PointLightColor: {r: 0.5492168, g: 0.6934489, b: 0.9622641, a: 1}
     - _PointLightPos: {r: 1, g: 0, b: 0, a: 1}

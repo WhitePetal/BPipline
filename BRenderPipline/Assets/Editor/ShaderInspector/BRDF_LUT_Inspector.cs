@@ -23,6 +23,7 @@ public class BRDF_LUT_Inspector : MShaderGUI
 	public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
 	{
 		base.OnGUI(materialEditor, properties);
+		return;
 
 		var albedo = FindProperty("_MainTex", properties);
 

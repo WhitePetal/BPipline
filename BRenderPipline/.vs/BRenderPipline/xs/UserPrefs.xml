@@ -1,9 +1,15 @@
 ﻿<Properties StartupConfiguration="{E9874D25-E251-AEF9-CFCC-E7D21E6968BB}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/BPipline/Runtime/MainCameraRenderer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Editor/ShaderInspector/MShaderGUI.cs">
     <Files>
-      <File FileName="Assets/BPipline/Runtime/BPipline.cs" Line="14" Column="24" />
-      <File FileName="Assets/BPipline/Runtime/MainCameraRenderer.cs" Line="109" Column="70" />
-      <File FileName="Assets/BPipline/Runtime/PostProcessProfiler.cs" />
+      <File FileName="Assets/BPipline/Runtime/BPipline.cs" Line="12" Column="29" />
+      <File FileName="Assets/BPipline/Runtime/BPiplineAsset.cs" Line="20" Column="18" />
+      <File FileName="Assets/BPipline/Runtime/MainCameraRenderer.cs" Line="14" Column="30" />
+      <File FileName="Assets/BPipline/Runtime/PostProcessProfiler.cs" Line="89" Column="39" />
+      <File FileName="Assets/BPipline/Runtime/PostProcessSettings.cs" Line="81" Column="20" />
+      <File FileName="Assets/BPipline/Runtime/PostEffectBase.cs" Line="6" Column="23" />
+      <File FileName="Assets/BPipline/Runtime/PostProcessEffects/Bloom.cs" Line="6" Column="27" />
+      <File FileName="Assets/Editor/ShaderInspector/BRDF_LUT_Inspector.cs" Line="6" Column="38" />
+      <File FileName="Assets/Editor/ShaderInspector/MShaderGUI.cs" Line="17" Column="48" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,7 +18,12 @@
             <Node name="Assets" expanded="True">
               <Node name="BPipline" expanded="True">
                 <Node name="Runtime" expanded="True">
-                  <Node name="BPipline.cs" selected="True" />
+                  <Node name="PostProcessEffects" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="Editor" expanded="True">
+                <Node name="ShaderInspector" expanded="True">
+                  <Node name="MShaderGUI.cs" selected="True" />
                 </Node>
               </Node>
             </Node>
@@ -23,7 +34,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="69ad9786-c725-48aa-a7fa-70e2ff7e5d8f" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="17822d1b-78e9-40d4-ac7b-8ce7252a0701" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -74,23 +74,23 @@ public partial class PostProcessProfiler
         }
 
         if (postprocessSettings.hdr.enable)
-		{
+        {
             commandBuffer.SetGlobalFloat("_ACES_Tonemapping_Factor", postprocessSettings.hdr.aces_tonemapping);
-			Draw(sourceTarget, destTarget, Pass.ACES_TomeMapping);
+            Draw(sourceTarget, destTarget, Pass.ACES_TomeMapping);
             int temp = sourceTarget;
             sourceTarget = destTarget;
             destTarget = temp;
         }
 
-		if (postprocessSettings.fxaa)
-		{
+        if (postprocessSettings.fxaa)
+        {
             Draw(sourceTarget, destTarget, Pass.FXAA);
             int temp = sourceTarget;
             sourceTarget = destTarget;
             destTarget = temp;
         }
 
-        if(sourceTarget != sourceId)
+        if (sourceTarget != sourceId)
         {
             Draw(sourceTarget, sourceId, Pass.Copy);
         }

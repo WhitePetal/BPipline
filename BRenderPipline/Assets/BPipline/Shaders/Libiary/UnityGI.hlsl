@@ -155,4 +155,46 @@ GI GetGI(float2 lightMapUV, float3 pos_world, half3 normal_world, half3 view_inv
     return gi;
 }
 
+#if _CUSTOME_GI
+half3 Custome_SH(half3 n)
+{
+    half4 nForSH = half4(n, 1.0);
+
+    // SHEvalLinearL0L1
+    half3 x;
+    x.r = dot(GET_PROP(_CustomeSHAr), nForSH);
+    x.g = dot(GET_PROP(_CustomeSHAg), nForSH);
+    x.b = dot(GET_PROP(_CustomeSHAb), nForSH);
+
+    // SHEvalLinearL2
+    half3 x1, x2;
+    // 4 of the quadratic (L2) polynomials
+    half4 vB = nForSH.xyzz * nForSH.yzzx;
+    x1.r = dot(GET_PROP(_CustomeSHBr), vB);
+    x1.g = dot(GET_PROP(_CustomeSHBg), vB);
+    x1.b = dot(GET_PROP(_CustomeSHBb), vB);
+
+    // Final (5th) quadratic (L2) polynomial
+    half vC = nForSH.x * nForSH.x - nForSH.y * nForSH.y;
+    x2 = _CustomeSHC.rgb * vC;
+
+    half3 sh = max(0.0, (x + x1 + x2));
+    // sh = pow(sh, 1.0 / 2.2);
+    return sh;
+}
+
+GI GetCustomeGI(half3 n, half3 v, half roughness)
+{
+    GI gi;
+    gi.diffuse = Custome_SH(n);
+    half3 r = reflect(-v, n);
+    half4 environment = SAMPLE_TEXTURECUBE_LOD(_AmbientTex, sampler_AmbientTex, r, roughness * 8.0);
+    gi.specular = DecodeHDREnvironment(environment, GET_PROP(_AmbientTex_HDR));
+    gi.shadowMask.always = false;
+    gi.shadowMask.distance = false;
+    gi.shadowMask.shadows = 1.0;
+    return gi;
+}
+#endif
+
 #endif

@@ -14,18 +14,22 @@ public partial class BPipline : RenderPipeline
 		new ShaderTagId("BFurPass"),
 	};
 
-	private bool useDynamicBatching, useGPUInstancing, useLightsPerObject;
+	private bool useDynamicBatching, useGPUInstancing, useLightsPerObject, useMultiRenderTarget, usePreDepth;
 	private ShadowSetttings shadowSetttings;
 	private PostProcessSettings postprocessSettings;
 	private MainCameraRenderer mainCameraRenderer = new MainCameraRenderer();
+	private int furRenderTimes;
 
-	public BPipline(bool useDynamicBatching, bool useGPUInstancing, bool useSRPBatching, bool useLightsPerObject, ShadowSetttings shadowSetttings, PostProcessSettings postprocessSettings)
+	public BPipline(bool useDynamicBatching, bool useGPUInstancing, bool useSRPBatching, bool useLightsPerObject, bool useMultiRenderTarget, bool usePreDepth, int furRenderTimes, ShadowSetttings shadowSetttings, PostProcessSettings postprocessSettings)
 	{
 		this.useDynamicBatching = useDynamicBatching;
 		this.useGPUInstancing = useGPUInstancing;
 		this.shadowSetttings = shadowSetttings;
 		this.postprocessSettings = postprocessSettings;
 		this.useLightsPerObject = useLightsPerObject;
+		this.useMultiRenderTarget = useMultiRenderTarget;
+		this.usePreDepth = usePreDepth;
+		this.furRenderTimes = furRenderTimes;
 		GraphicsSettings.useScriptableRenderPipelineBatching = useSRPBatching;
 		GraphicsSettings.lightsUseLinearIntensity = true;
 #if UNITY_EDITOR
@@ -37,7 +41,7 @@ public partial class BPipline : RenderPipeline
 	{
 		for (int i = 0; i < cameras.Length; ++i)
 		{
-			mainCameraRenderer.Render(context, cameras[i], useDynamicBatching, useGPUInstancing, useLightsPerObject, shadowSetttings, postprocessSettings);
+			mainCameraRenderer.Render(context, cameras[i], useDynamicBatching, useGPUInstancing, useLightsPerObject, useMultiRenderTarget, usePreDepth, furRenderTimes, shadowSetttings, postprocessSettings);
 		}
 	}
 }

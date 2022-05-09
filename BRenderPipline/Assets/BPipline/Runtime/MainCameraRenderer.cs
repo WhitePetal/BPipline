@@ -40,8 +40,10 @@ public partial class MainCameraRenderer
 		RenderBufferStoreAction.DontCare,
 		RenderBufferStoreAction.DontCare
 	};
-	public static RenderTargetBinding renderTargetBinding = new RenderTargetBinding(colorBufferIds, colorBuffersLoadActions, colorBuffersStoreActions, depthBufferId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store);
-	public static RenderTargetBinding renderTargetBinding_PreDepth = new RenderTargetBinding(colorBufferIds, colorBuffersLoadActions, colorBuffersStoreActions_PreDepth, depthBufferId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store);
+	public RenderTargetBinding renderTargetBinding_Default = new RenderTargetBinding(colorBufferId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store, depthBufferId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store);
+	public RenderTargetBinding renderTargetBinding_Default_PreDepth = new RenderTargetBinding(colorBufferId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.DontCare, depthBufferId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store);
+	public RenderTargetBinding renderTargetBinding_MultiRender = new RenderTargetBinding(colorBufferIds, colorBuffersLoadActions, colorBuffersStoreActions, depthBufferId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store);
+	public RenderTargetBinding renderTargetBinding_MultiRender_PreDepth = new RenderTargetBinding(colorBufferIds, colorBuffersLoadActions, colorBuffersStoreActions_PreDepth, depthBufferId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store);
 
 	private const string commandBufferName = "Render Camera";
 	private CommandBuffer commandBuffer = new CommandBuffer()
@@ -49,7 +51,8 @@ public partial class MainCameraRenderer
 		name = commandBufferName
 	};
 
-	public void Render(ScriptableRenderContext context, Camera camera, bool useDynamicBatching, bool useGPUInstancing, bool useLightsPerObject, ShadowSetttings shadowSetttings, PostProcessSettings postprocessSettings)
+	public void Render(ScriptableRenderContext context, Camera camera, bool useDynamicBatching, bool useGPUInstancing, bool useLightsPerObject, bool useMultiRenderTarget, bool usePreDepth, int furRenderTimes,
+		ShadowSetttings shadowSetttings, PostProcessSettings postprocessSettings)
 	{
 		this.context = context;
 		this.camera = camera;
@@ -67,25 +70,28 @@ public partial class MainCameraRenderer
 		postprocessProfiler.Setup(context, camera, postprocessSettings);
 		commandBuffer.EndSample(SampleName);
 
-		GenerateBuffers();
+		GenerateBuffers(useMultiRenderTarget);
 
-		SetupPerDepth();
-		DrawPreDepth(useDynamicBatching, useGPUInstancing);
+        if (usePreDepth)
+        {
+			SetupPreDepth(useMultiRenderTarget);
+			DrawPreDepth(useDynamicBatching, useGPUInstancing);
+        }
 
-		SetupForRender();
+		SetupForRender(usePreDepth, useMultiRenderTarget);
 
-		DrawVisibleGeometry(useDynamicBatching, useGPUInstancing, useLightsPerObject);
+		DrawVisibleGeometry(useDynamicBatching, useGPUInstancing, useLightsPerObject, furRenderTimes);
 #if UNITY_EDITOR
 		DrawUnsupportShader();
 		DrawGizmosBeforePostProcess();
 #endif
-		if (postprocessProfiler.isActive)
-		{
-			postprocessProfiler.Render(colorBufferId);
-		}
+        if (postprocessProfiler.isActive)
+        {
+            postprocessProfiler.Render(colorBufferId);
+        }
 
 #if UNITY_EDITOR
-		DrawGizmosAfterPostProcess();
+        DrawGizmosAfterPostProcess();
 #endif
 		Copy(colorBufferId, BuiltinRenderTextureType.CameraTarget, true);
 		CleanUp();
@@ -103,7 +109,7 @@ public partial class MainCameraRenderer
 		return false;
 	}
 
-	private void GenerateBuffers()
+	private void GenerateBuffers(bool useMultiRenderTarget)
 	{
 		if (postprocessProfiler.isActive)
 		{
@@ -111,15 +117,15 @@ public partial class MainCameraRenderer
 			else postprocessSettings.renderTextureFormat = RenderTextureFormat.Default;
 		}
 		commandBuffer.GetTemporaryRT(colorBufferId, camera.pixelWidth, camera.pixelHeight, 0, postprocessSettings.filterMode, postprocessSettings.renderTextureFormat, RenderTextureReadWrite.Default);
-		commandBuffer.GetTemporaryRT(addBufferId, camera.pixelWidth, camera.pixelHeight, 0, postprocessSettings.filterMode, RenderTextureFormat.Default, RenderTextureReadWrite.Linear);
+		if(useMultiRenderTarget) commandBuffer.GetTemporaryRT(addBufferId, camera.pixelWidth, camera.pixelHeight, 0, postprocessSettings.filterMode, RenderTextureFormat.Default, RenderTextureReadWrite.Linear);
 		commandBuffer.GetTemporaryRT(depthBufferId, camera.pixelWidth, camera.pixelHeight, 24, FilterMode.Point, RenderTextureFormat.Depth);
 	}
 
-	private void SetupPerDepth()
+	private void SetupPreDepth(bool useMultiRenderTarget)
 	{
 		CameraClearFlags cameraClearFlags = camera.clearFlags;
 		context.SetupCameraProperties(camera);
-		commandBuffer.SetRenderTarget(renderTargetBinding_PreDepth);
+		commandBuffer.SetRenderTarget(useMultiRenderTarget ? renderTargetBinding_MultiRender_PreDepth : renderTargetBinding_Default_PreDepth);
 		commandBuffer.ClearRenderTarget(cameraClearFlags < CameraClearFlags.Depth, true, Color.clear);
 		commandBuffer.BeginSample(SampleName);
 		ExecuteBuffer();
@@ -137,13 +143,14 @@ public partial class MainCameraRenderer
 			enableInstancing = useGPUInstancing
 		};
 		FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
+		drawingSettings.SetShaderPassName(0, BPipline.bshaderTagIds[0]);
 		context.DrawRenderers(cullingResults, ref drawingSettings, ref filteringSettings);
 		commandBuffer.EndSample(SampleName);
 		ExecuteBuffer();
 		context.Submit();
 	}
 
-	private void SetupForRender()
+	private void SetupForRender(bool usePreDepth, bool useMultiRenderTarget)
 	{
 		context.SetupCameraProperties(camera);
 		CameraClearFlags cameraClearFlags = camera.clearFlags;
@@ -151,13 +158,14 @@ public partial class MainCameraRenderer
 		{
 			if (cameraClearFlags < CameraClearFlags.Color) cameraClearFlags = CameraClearFlags.Color;
 		}
-		commandBuffer.SetRenderTarget(renderTargetBinding);
-		commandBuffer.ClearRenderTarget(false, cameraClearFlags == CameraClearFlags.Color, cameraClearFlags == CameraClearFlags.Color ? camera.backgroundColor.linear : Color.clear);
+		if (useMultiRenderTarget) commandBuffer.SetRenderTarget(renderTargetBinding_MultiRender);
+		else commandBuffer.SetRenderTarget(renderTargetBinding_Default);
+		commandBuffer.ClearRenderTarget(!usePreDepth, cameraClearFlags == CameraClearFlags.Color, cameraClearFlags == CameraClearFlags.Color ? camera.backgroundColor.linear : Color.clear);
 		commandBuffer.BeginSample(SampleName);
 		ExecuteBuffer();
 	}
 
-	private void DrawVisibleGeometry(bool useDynamicBatching, bool useGPUInstancing, bool useLightsPerObject)
+	private void DrawVisibleGeometry(bool useDynamicBatching, bool useGPUInstancing, bool useLightsPerObject, int furRenderTimes)
 	{
 		PerObjectData lightsPerObjectFlags = useLightsPerObject ? PerObjectData.LightData | PerObjectData.LightIndices : PerObjectData.None;
 
@@ -191,9 +199,10 @@ public partial class MainCameraRenderer
 		sortingSettings.criteria = SortingCriteria.CommonOpaque;
 		filteringSettings.renderQueueRange = RenderQueueRange.transparent;
 
-		for (int i = 0; i < 10; ++i)
+		float furRate = 1.0f / furRenderTimes;
+		for (int i = 0; i < furRenderTimes; ++i)
 		{
-			commandBuffer.SetGlobalFloat("_FurOffset", i / 10.0f);
+			commandBuffer.SetGlobalFloat("_FurOffset", furRenderTimes);
 			ExecuteBuffer();
 			context.DrawRenderers(cullingResults, ref drawingSettings, ref filteringSettings);
 		}
@@ -228,12 +237,9 @@ public partial class MainCameraRenderer
 	private void CleanUp()
 	{
 		lightings.Cleanup();
-		if (postprocessProfiler.isActive)
-		{
-			commandBuffer.ReleaseTemporaryRT(colorBufferId);
-			commandBuffer.ReleaseTemporaryRT(addBufferId);
-			commandBuffer.ReleaseTemporaryRT(depthBufferId);
-		}
+		commandBuffer.ReleaseTemporaryRT(colorBufferId);
+		commandBuffer.ReleaseTemporaryRT(addBufferId);
+		commandBuffer.ReleaseTemporaryRT(depthBufferId);
 	}
 
 	private void ExecuteBuffer()
